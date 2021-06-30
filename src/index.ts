@@ -1,4 +1,4 @@
-import { Stack, Duration } from '@aws-cdk/core';
+import { Stack, Construct, Duration } from '@aws-cdk/core';
 import { Table } from '@aws-cdk/aws-dynamodb';
 import { DynamoEventSource } from '@aws-cdk/aws-lambda-event-sources/lib/dynamodb';
 import { SqsDlq } from '@aws-cdk/aws-lambda-event-sources/lib/sqs-dlq';
@@ -35,14 +35,14 @@ export interface DynamoStreamToEventBridgeProps {
  */
 export default class DynamoStreamToEventBridge {
   constructor(
-    scope: Stack,
+    scope: Construct,
     id: string,
     { table, eventPrefix, eventBus }: DynamoStreamToEventBridgeProps
   ) {
     const { tableName } = table;
 
     // Get the default event bus arn for where an event Bus prop is not provided
-    const defaultEventBusArn = scope.formatArn({
+    const defaultEventBusArn = (scope as Stack).formatArn({
       service: 'events',
       resource: 'event-bus',
       resourceName: 'default',
