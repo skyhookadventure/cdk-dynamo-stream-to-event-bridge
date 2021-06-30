@@ -1,7 +1,7 @@
 {
   "name": "cdk-dynamo-stream-to-event-bridge",
   "license": "MIT",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "main": "dist/index.js",
   "description": "Stream events from Dynamo DB to EventBridge.",
   "scripts": {
