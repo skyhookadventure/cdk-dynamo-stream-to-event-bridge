@@ -1,7 +1,7 @@
 import { Stack, Construct, Duration } from '@aws-cdk/core';
 import { ITable } from '@aws-cdk/aws-dynamodb';
-import { DynamoEventSource } from '@aws-cdk/aws-lambda-event-sources/lib/dynamodb';
-import { SqsDlq } from '@aws-cdk/aws-lambda-event-sources/lib/sqs-dlq';
+import { DynamoEventSource } from '@aws-cdk/aws-lambda-event-sources';
+import { SqsDlq } from '@aws-cdk/aws-lambda-event-sources';
 import { NodejsFunction } from '@aws-cdk/aws-lambda-nodejs';
 import { Runtime, StartingPosition } from '@aws-cdk/aws-lambda';
 import { Queue } from '@aws-cdk/aws-sqs';
