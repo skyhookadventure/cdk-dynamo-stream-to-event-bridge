@@ -1,20 +1,20 @@
 import { Stack, Construct, Duration } from '@aws-cdk/core';
-import { Table } from '@aws-cdk/aws-dynamodb';
+import { ITable } from '@aws-cdk/aws-dynamodb';
 import { DynamoEventSource } from '@aws-cdk/aws-lambda-event-sources/lib/dynamodb';
 import { SqsDlq } from '@aws-cdk/aws-lambda-event-sources/lib/sqs-dlq';
 import { NodejsFunction } from '@aws-cdk/aws-lambda-nodejs';
 import { Runtime, StartingPosition } from '@aws-cdk/aws-lambda';
 import { Queue } from '@aws-cdk/aws-sqs';
 import { join } from 'path';
-import { EventBus } from '@aws-cdk/aws-events';
+import { IEventBus } from '@aws-cdk/aws-events';
 import { PolicyStatement, Effect } from '@aws-cdk/aws-iam';
 
 export interface DynamoStreamToEventBridgeProps {
-  table: Table;
+  table: ITable;
   /** Event name prefix (e.g. `Todo` for TodoCreate/TodoUpdate/TodoDelete) */
   eventPrefix: string;
   /** Event Bus (optional - defaults to the account default event bus) */
-  eventBus?: EventBus;
+  eventBus?: IEventBus;
 }
 
 /**
