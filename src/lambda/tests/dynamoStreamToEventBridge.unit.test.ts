@@ -12,7 +12,7 @@ import {
 import mockDynamoDBStreamEvent from './mocks/mockDynamoDBStreamEvent';
 
 beforeAll(() => {
-  process.env.TABLE_NAME = 'Todo';
+  process.env.EVENT_PREFIX = 'Todo';
   process.env.AWS_LAMBDA_FUNCTION_NAME = 'testFunctionName';
   process.env.EVENT_BUS_ARN = 'default';
 });

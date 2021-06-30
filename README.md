@@ -8,7 +8,10 @@ Stream events from Dynamo DB to EventBridge.
 ## Use
 
 ```typescript
-new DynamoStreamToEventBridge(scope, "streamTodoTable", TodoTable);
+new DynamoStreamToEventBridge(scope, 'streamTodoTable', {
+  table: TodoTable,
+  eventPrefix: 'EventPrefix', // e.g. Todo for events with DetailType set as TodoCreate/TodoUpdate/TodoDelete
+});
 ```
 
 ## Built by Skyhook

@@ -40,7 +40,7 @@ export const eventNameMapping = {
  * Create the DetailType (event name)
  */
 export function createDetailType(operation: EventName): string {
-  return process.env.TABLE_NAME + eventNameMapping[operation];
+  return process.env.EVENT_PREFIX + eventNameMapping[operation];
 }
 
 /**
