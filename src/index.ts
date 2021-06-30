@@ -1,13 +1,13 @@
-import { Stack, Duration } from "@aws-cdk/core";
-import { Table } from "@aws-cdk/aws-dynamodb";
-import { DynamoEventSource } from "@aws-cdk/aws-lambda-event-sources/lib/dynamodb";
-import { SqsDlq } from "@aws-cdk/aws-lambda-event-sources/lib/sqs-dlq";
-import { NodejsFunction } from "@aws-cdk/aws-lambda-nodejs";
-import { Runtime, StartingPosition } from "@aws-cdk/aws-lambda";
-import { Queue } from "@aws-cdk/aws-sqs";
-import { join } from "path";
-import { EventBus } from "@aws-cdk/aws-events";
-import { PolicyStatement, Effect } from "@aws-cdk/aws-iam";
+import { Stack, Duration } from '@aws-cdk/core';
+import { Table } from '@aws-cdk/aws-dynamodb';
+import { DynamoEventSource } from '@aws-cdk/aws-lambda-event-sources/lib/dynamodb';
+import { SqsDlq } from '@aws-cdk/aws-lambda-event-sources/lib/sqs-dlq';
+import { NodejsFunction } from '@aws-cdk/aws-lambda-nodejs';
+import { Runtime, StartingPosition } from '@aws-cdk/aws-lambda';
+import { Queue } from '@aws-cdk/aws-sqs';
+import { join } from 'path';
+import { EventBus } from '@aws-cdk/aws-events';
+import { PolicyStatement, Effect } from '@aws-cdk/aws-iam';
 
 export interface DynamoStreamToEventBridgeProps {
   table: Table;
@@ -43,16 +43,16 @@ export default class DynamoStreamToEventBridge {
 
     // Get the default event bus arn for where an event Bus prop is not provided
     const defaultEventBusArn = scope.formatArn({
-      service: "events",
-      resource: "event-bus",
-      resourceName: "default",
+      service: 'events',
+      resource: 'event-bus',
+      resourceName: 'default',
     });
 
     const eventBusArn = eventBus?.eventBusArn || defaultEventBusArn;
 
     // Lambda to handle streaming the event
     const lambda = new NodejsFunction(scope, `${id}Function`, {
-      entry: join(__dirname, "./lambda/dynamoStreamEventBridge.ts"),
+      entry: join(__dirname, './lambda/dynamoStreamEventBridge.ts'),
       runtime: Runtime.NODEJS_14_X,
       memorySize: 1024,
       description: `Streams updated rows from the table ${tableName}to EventBridge.`,
@@ -64,7 +64,7 @@ export default class DynamoStreamToEventBridge {
       initialPolicy: [
         new PolicyStatement({
           resources: [eventBusArn],
-          actions: ["events:PutEvents"],
+          actions: ['events:PutEvents'],
           effect: Effect.ALLOW,
         }),
       ],
@@ -98,7 +98,7 @@ export default class DynamoStreamToEventBridge {
     metric.createAlarm(scope, `${id}Alarm`, {
       alarmName: `${tableName}StreamToEventBridge`,
       alarmDescription:
-        "Alert when a record has failed to stream to event bridge using cdk-dynamo-stream-to-event-bridge.",
+        'Alert when a record has failed to stream to event bridge using cdk-dynamo-stream-to-event-bridge.',
       threshold: 1,
       evaluationPeriods: 1,
       datapointsToAlarm: 1,
