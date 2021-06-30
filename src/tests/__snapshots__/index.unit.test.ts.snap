@@ -2,20 +2,6 @@
 
 exports[`creates resources matching the snapshot 1`] = `
 Object {
-  "Parameters": Object {
-    "AssetParameters0150d99dcf4c78cd2709a1101b3cc906b6a04dbaa7c38365360873f381b651c0ArtifactHashC1D6D18D": Object {
-      "Description": "Artifact hash for asset \\"0150d99dcf4c78cd2709a1101b3cc906b6a04dbaa7c38365360873f381b651c0\\"",
-      "Type": "String",
-    },
-    "AssetParameters0150d99dcf4c78cd2709a1101b3cc906b6a04dbaa7c38365360873f381b651c0S3BucketFADDFA01": Object {
-      "Description": "S3 bucket for asset \\"0150d99dcf4c78cd2709a1101b3cc906b6a04dbaa7c38365360873f381b651c0\\"",
-      "Type": "String",
-    },
-    "AssetParameters0150d99dcf4c78cd2709a1101b3cc906b6a04dbaa7c38365360873f381b651c0S3VersionKeyD0A939BA": Object {
-      "Description": "S3 key for asset version \\"0150d99dcf4c78cd2709a1101b3cc906b6a04dbaa7c38365360873f381b651c0\\"",
-      "Type": "String",
-    },
-  },
   "Resources": Object {
     "streamTableAlarm30FED3DA": Object {
       "Properties": Object {
@@ -108,42 +94,8 @@ Object {
       ],
       "Properties": Object {
         "Code": Object {
-          "S3Bucket": Object {
-            "Ref": "AssetParameters0150d99dcf4c78cd2709a1101b3cc906b6a04dbaa7c38365360873f381b651c0S3BucketFADDFA01",
-          },
-          "S3Key": Object {
-            "Fn::Join": Array [
-              "",
-              Array [
-                Object {
-                  "Fn::Select": Array [
-                    0,
-                    Object {
-                      "Fn::Split": Array [
-                        "||",
-                        Object {
-                          "Ref": "AssetParameters0150d99dcf4c78cd2709a1101b3cc906b6a04dbaa7c38365360873f381b651c0S3VersionKeyD0A939BA",
-                        },
-                      ],
-                    },
-                  ],
-                },
-                Object {
-                  "Fn::Select": Array [
-                    1,
-                    Object {
-                      "Fn::Split": Array [
-                        "||",
-                        Object {
-                          "Ref": "AssetParameters0150d99dcf4c78cd2709a1101b3cc906b6a04dbaa7c38365360873f381b651c0S3VersionKeyD0A939BA",
-                        },
-                      ],
-                    },
-                  ],
-                },
-              ],
-            ],
-          },
+          "S3Bucket": "cdk-lambda-nodejs-mock-fake-bucket",
+          "S3Key": "cdk-lambda-nodejs-mock-fake-lambda.ts",
         },
         "Description": Object {
           "Fn::Join": Array [
@@ -159,7 +111,6 @@ Object {
         },
         "Environment": Object {
           "Variables": Object {
-            "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
             "EVENT_BUS_ARN": Object {
               "Fn::Join": Array [
                 "",

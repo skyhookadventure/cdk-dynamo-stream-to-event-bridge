@@ -53,6 +53,9 @@
         "lines": 100,
         "statements": 100
       }
+    },
+    "moduleNameMapper": {
+      "@aws-cdk/aws-lambda-nodejs": "cdk-lambda-nodejs-mock"
     }
   },
   "peerDependencies": {
@@ -65,5 +68,8 @@
     "@aws-cdk/aws-lambda-nodejs": "^1",
     "@aws-cdk/aws-sqs": "^1",
     "@aws-cdk/core": "^1"
+  },
+  "dependencies": {
+    "cdk-lambda-nodejs-mock": "^1.0.6"
   }
 }

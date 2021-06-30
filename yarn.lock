@@ -1590,6 +1590,11 @@ caniuse-lite@^1.0.30001219:
   resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001241.tgz#cd3fae47eb3d7691692b406568d7a3e5b23c7598"
   integrity sha512-1uoSZ1Pq1VpH0WerIMqwptXHNNGfdl7d1cJUFs80CwQ/lVzdhTvsFZCeNFslze7AjsQnb4C85tzclPa1VShbeQ==
 
+cdk-lambda-nodejs-mock@^1.0.6:
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/cdk-lambda-nodejs-mock/-/cdk-lambda-nodejs-mock-1.0.6.tgz#115136c09c8eda252369f65643fa95a278619547"
+  integrity sha512-u+lqFbSoMFS+bJIp4EknYnmC/lHcuMzL5omd6Ueem5Nld/W9RU/FFWu3AZimAf2A9IRM+GrHiKrySf06b2WeAw==
+
 chalk@^2.0.0:
   version "2.4.2"
   resolved "https://registry.yarnpkg.com/chalk/-/chalk-2.4.2.tgz#cd42541677a54333cf541a49108c1432b44c9424"

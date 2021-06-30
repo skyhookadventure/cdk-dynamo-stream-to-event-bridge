@@ -52,7 +52,7 @@ export default class DynamoStreamToEventBridge {
 
     // Lambda to handle streaming the event
     const lambda = new NodejsFunction(scope, `${id}Function`, {
-      entry: join(__dirname, './lambda/dynamoStreamEventBridge.ts'),
+      entry: join(__dirname, './lambda/dynamoStreamEventBridge.js'), // Will be compiled in the node module
       runtime: Runtime.NODEJS_14_X,
       memorySize: 1024,
       description: `Streams updated rows from the table ${tableName}to EventBridge.`,

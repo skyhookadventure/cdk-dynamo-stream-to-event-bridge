@@ -33,7 +33,6 @@ it('creates a Lambda function to process the Dynamo stream and emit EventBridge 
     haveResourceLike('AWS::Lambda::Function', {
       Environment: {
         Variables: {
-          AWS_NODEJS_CONNECTION_REUSE_ENABLED: '1',
           EVENT_BUS_ARN: {
             'Fn::Join': [
               '',
