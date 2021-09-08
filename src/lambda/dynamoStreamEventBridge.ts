@@ -4,11 +4,7 @@
 /* eslint-disable guard-for-in */
 /* eslint-disable no-underscore-dangle */
 import { DynamoDB, EventBridge } from 'aws-sdk';
-import {
-  GetRecordsOutput,
-  AttributeMap,
-  Record,
-} from 'aws-sdk/clients/dynamodbstreams';
+import { GetRecordsOutput, Record } from 'aws-sdk/clients/dynamodbstreams';
 
 /**
  * Initialise an EventBridge instance (for caching across invocations of this lambda)
@@ -20,7 +16,7 @@ export const eventBridge = new EventBridge();
  */
 export function unmarshallRecord(record: Record): { [key: string]: any } {
   return DynamoDB.Converter.unmarshall(
-    record!.dynamodb!.NewImage as AttributeMap
+    record!.dynamodb!.NewImage || record!.dynamodb!.OldImage!
   );
 }
 

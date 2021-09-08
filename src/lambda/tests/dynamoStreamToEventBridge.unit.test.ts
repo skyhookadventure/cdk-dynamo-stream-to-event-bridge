@@ -22,6 +22,18 @@ describe('unmarshallRecord', () => {
     const res = unmarshallRecord(mockDynamoDBStreamEvent.Records![0]);
     expect(res.id).toBeTruthy();
   });
+
+  it('unmarshalls the OldImage of a DynamoDB record,for delete events', () => {
+    const mockDeleteRecord = {
+      ...mockDynamoDBStreamEvent.Records![0],
+      dynamodb: {
+        OldImage: mockDynamoDBStreamEvent.Records![0].dynamodb?.NewImage,
+        NewImage: undefined,
+      },
+    };
+    const res = unmarshallRecord(mockDeleteRecord);
+    expect(res.id).toBeTruthy();
+  });
 });
 
 describe('createDetailType', () => {
