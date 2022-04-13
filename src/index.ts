@@ -42,7 +42,7 @@ export default class DynamoStreamToEventBridge {
     const { tableName } = table;
 
     // Get the default event bus arn for where an event Bus prop is not provided
-    const defaultEventBusArn = (scope as Stack).formatArn({
+    const defaultEventBusArn = Stack.of(scope).formatArn({
       service: 'events',
       resource: 'event-bus',
       resourceName: 'default',
