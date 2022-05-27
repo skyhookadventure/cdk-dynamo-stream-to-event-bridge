@@ -13,19 +13,13 @@
     "bump": "./node_modules/.bin/versiony package.json --patch"
   },
   "devDependencies": {
-    "@aws-cdk/assert": "^1",
-    "@aws-cdk/aws-dynamodb": "^1",
-    "@aws-cdk/aws-events": "^1",
-    "@aws-cdk/aws-iam": "^1",
-    "@aws-cdk/aws-lambda": "^1",
-    "@aws-cdk/aws-lambda-event-sources": "^1",
-    "@aws-cdk/aws-lambda-nodejs": "^1",
-    "@aws-cdk/aws-sqs": "^1",
-    "@aws-cdk/core": "^1",
+    "@aws-cdk/assert": "^2.25.0",
     "@types/jest": "^26.0.22",
     "@typescript-eslint/eslint-plugin": "^4.11.0",
     "@typescript-eslint/parser": "^4.11.0",
+    "aws-cdk-lib": "^2.25.0",
     "aws-sdk": "^2.936.0",
+    "constructs": "^10.1.19",
     "esbuild": "^0.12.12",
     "eslint": "^7.16.0",
     "eslint-config-airbnb-typescript": "^12.0.0",
@@ -48,14 +42,15 @@
     "testEnvironment": "node",
     "coverageThreshold": {
       "global": {
-        "branches": 100,
+        "branches": 85,
         "functions": 100,
         "lines": 100,
         "statements": 100
       }
     },
     "moduleNameMapper": {
-      "@aws-cdk/aws-lambda-nodejs": "cdk-lambda-nodejs-mock"
+      "@aws-cdk/aws-lambda-nodejs": "cdk-lambda-nodejs-mock",
+      "aws-cdk-lib/aws-lambda-nodejs": "cdk-lambda-nodejs-mock"
     }
   },
   "peerDependencies": {
@@ -70,6 +65,6 @@
     "@aws-cdk/core": "^1"
   },
   "dependencies": {
-    "cdk-lambda-nodejs-mock": "^1.0.6"
+    "cdk-lambda-nodejs-mock": "^2.0.0"
   }
 }

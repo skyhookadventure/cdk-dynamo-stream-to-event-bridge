@@ -1,13 +1,17 @@
-import { Stack, Construct, Duration } from '@aws-cdk/core';
-import { ITable } from '@aws-cdk/aws-dynamodb';
-import { DynamoEventSource, SqsDlq } from '@aws-cdk/aws-lambda-event-sources';
+import { Stack, Duration } from 'aws-cdk-lib/core';
+import { ITable } from 'aws-cdk-lib/aws-dynamodb';
+import {
+  DynamoEventSource,
+  SqsDlq,
+} from 'aws-cdk-lib/aws-lambda-event-sources';
 
-import { NodejsFunction } from '@aws-cdk/aws-lambda-nodejs';
-import { Runtime, StartingPosition } from '@aws-cdk/aws-lambda';
-import { Queue } from '@aws-cdk/aws-sqs';
+import { NodejsFunction } from 'aws-cdk-lib/aws-lambda-nodejs';
+import { Runtime, StartingPosition } from 'aws-cdk-lib/aws-lambda';
+import { Queue } from 'aws-cdk-lib/aws-sqs';
 import { join } from 'path';
-import { IEventBus } from '@aws-cdk/aws-events';
-import { PolicyStatement, Effect } from '@aws-cdk/aws-iam';
+import { IEventBus } from 'aws-cdk-lib/aws-events';
+import { PolicyStatement, Effect } from 'aws-cdk-lib/aws-iam';
+import { Construct } from 'constructs';
 
 export interface DynamoStreamToEventBridgeProps {
   table: ITable;

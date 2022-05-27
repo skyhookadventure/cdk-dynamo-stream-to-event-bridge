@@ -3,8 +3,8 @@ import {
   expect as expectCDK,
   SynthUtils,
 } from '@aws-cdk/assert';
-import { Stack } from '@aws-cdk/core';
-import { Table, AttributeType, StreamViewType } from '@aws-cdk/aws-dynamodb';
+import { Stack } from 'aws-cdk-lib';
+import { Table, AttributeType, StreamViewType } from 'aws-cdk-lib/aws-dynamodb';
 import DynamoStreamToEventBridge from '..';
 
 class TestStack extends Stack {
