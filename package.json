@@ -54,15 +54,9 @@
     }
   },
   "peerDependencies": {
-    "@aws-cdk/assert": "^1",
-    "@aws-cdk/aws-dynamodb": "^1",
-    "@aws-cdk/aws-events": "^1",
-    "@aws-cdk/aws-iam": "^1",
-    "@aws-cdk/aws-lambda": "^1",
-    "@aws-cdk/aws-lambda-event-sources": "^1",
-    "@aws-cdk/aws-lambda-nodejs": "^1",
-    "@aws-cdk/aws-sqs": "^1",
-    "@aws-cdk/core": "^1"
+    "@aws-cdk/assert": "^2",
+    "aws-cdk-lib": "^2",
+    "constructs": "^10"
   },
   "dependencies": {
     "cdk-lambda-nodejs-mock": "^2.0.0"
