@@ -1,4 +1,4 @@
-import { Stack, Duration } from 'aws-cdk-lib/core';
+import { Stack, Duration } from 'aws-cdk-lib';
 import { ITable } from 'aws-cdk-lib/aws-dynamodb';
 import {
   DynamoEventSource,
