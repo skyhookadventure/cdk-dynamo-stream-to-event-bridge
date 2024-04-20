@@ -1,16 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`creates resources matching the snapshot 1`] = `
-Object {
-  "Resources": Object {
-    "streamTableAlarm30FED3DA": Object {
-      "Properties": Object {
+{
+  "Resources": {
+    "streamTableAlarm30FED3DA": {
+      "Properties": {
         "AlarmDescription": "Alert when a record has failed to stream to event bridge using cdk-dynamo-stream-to-event-bridge.",
-        "AlarmName": Object {
-          "Fn::Join": Array [
+        "AlarmName": {
+          "Fn::Join": [
             "",
-            Array [
-              Object {
+            [
+              {
                 "Ref": "testStack53BF581B",
               },
               "StreamToEventBridge",
@@ -19,11 +19,11 @@ Object {
         },
         "ComparisonOperator": "GreaterThanOrEqualToThreshold",
         "DatapointsToAlarm": 1,
-        "Dimensions": Array [
-          Object {
+        "Dimensions": [
+          {
             "Name": "QueueName",
-            "Value": Object {
-              "Fn::GetAtt": Array [
+            "Value": {
+              "Fn::GetAtt": [
                 "streamTableDLQ0AE2E98D",
                 "QueueName",
               ],
@@ -39,15 +39,15 @@ Object {
       },
       "Type": "AWS::CloudWatch::Alarm",
     },
-    "streamTableDLQ0AE2E98D": Object {
+    "streamTableDLQ0AE2E98D": {
       "DeletionPolicy": "Delete",
-      "Properties": Object {
+      "Properties": {
         "MessageRetentionPeriod": 1209600,
-        "QueueName": Object {
-          "Fn::Join": Array [
+        "QueueName": {
+          "Fn::Join": [
             "",
-            Array [
-              Object {
+            [
+              {
                 "Ref": "testStack53BF581B",
               },
               "StreamToEventBridgeDLQ",
@@ -59,27 +59,27 @@ Object {
       "Type": "AWS::SQS::Queue",
       "UpdateReplacePolicy": "Delete",
     },
-    "streamTableFunctionDynamoDBEventSourcetestStack45E4763F": Object {
-      "Properties": Object {
+    "streamTableFunctionDynamoDBEventSourcetestStack45E4763F": {
+      "Properties": {
         "BatchSize": 10,
         "BisectBatchOnFunctionError": true,
-        "DestinationConfig": Object {
-          "OnFailure": Object {
-            "Destination": Object {
-              "Fn::GetAtt": Array [
+        "DestinationConfig": {
+          "OnFailure": {
+            "Destination": {
+              "Fn::GetAtt": [
                 "streamTableDLQ0AE2E98D",
                 "Arn",
               ],
             },
           },
         },
-        "EventSourceArn": Object {
-          "Fn::GetAtt": Array [
+        "EventSourceArn": {
+          "Fn::GetAtt": [
             "testStack53BF581B",
             "StreamArn",
           ],
         },
-        "FunctionName": Object {
+        "FunctionName": {
           "Ref": "streamTableFunctionE2FC641D",
         },
         "MaximumRetryAttempts": 10,
@@ -87,44 +87,44 @@ Object {
       },
       "Type": "AWS::Lambda::EventSourceMapping",
     },
-    "streamTableFunctionE2FC641D": Object {
-      "DependsOn": Array [
+    "streamTableFunctionE2FC641D": {
+      "DependsOn": [
         "streamTableFunctionServiceRoleDefaultPolicyA0B5635E",
         "streamTableFunctionServiceRole077F8269",
       ],
-      "Properties": Object {
-        "Code": Object {
+      "Properties": {
+        "Code": {
           "S3Bucket": "cdk-lambda-nodejs-mock-fake-bucket",
           "S3Key": "cdk-lambda-nodejs-mock-fake-lambda.ts",
         },
-        "Description": Object {
-          "Fn::Join": Array [
+        "Description": {
+          "Fn::Join": [
             "",
-            Array [
+            [
               "Streams updated rows from the table ",
-              Object {
+              {
                 "Ref": "testStack53BF581B",
               },
               "to EventBridge.",
             ],
           ],
         },
-        "Environment": Object {
-          "Variables": Object {
-            "EVENT_BUS_ARN": Object {
-              "Fn::Join": Array [
+        "Environment": {
+          "Variables": {
+            "EVENT_BUS_ARN": {
+              "Fn::Join": [
                 "",
-                Array [
+                [
                   "arn:",
-                  Object {
+                  {
                     "Ref": "AWS::Partition",
                   },
                   ":events:",
-                  Object {
+                  {
                     "Ref": "AWS::Region",
                   },
                   ":",
-                  Object {
+                  {
                     "Ref": "AWS::AccountId",
                   },
                   ":event-bus/default",
@@ -136,37 +136,37 @@ Object {
         },
         "Handler": "index.handler",
         "MemorySize": 1024,
-        "Role": Object {
-          "Fn::GetAtt": Array [
+        "Role": {
+          "Fn::GetAtt": [
             "streamTableFunctionServiceRole077F8269",
             "Arn",
           ],
         },
-        "Runtime": "nodejs14.x",
+        "Runtime": "nodejs12.x",
       },
       "Type": "AWS::Lambda::Function",
     },
-    "streamTableFunctionServiceRole077F8269": Object {
-      "Properties": Object {
-        "AssumeRolePolicyDocument": Object {
-          "Statement": Array [
-            Object {
+    "streamTableFunctionServiceRole077F8269": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
               "Action": "sts:AssumeRole",
               "Effect": "Allow",
-              "Principal": Object {
+              "Principal": {
                 "Service": "lambda.amazonaws.com",
               },
             },
           ],
           "Version": "2012-10-17",
         },
-        "ManagedPolicyArns": Array [
-          Object {
-            "Fn::Join": Array [
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
               "",
-              Array [
+              [
                 "arn:",
-                Object {
+                {
                   "Ref": "AWS::Partition",
                 },
                 ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
@@ -177,27 +177,27 @@ Object {
       },
       "Type": "AWS::IAM::Role",
     },
-    "streamTableFunctionServiceRoleDefaultPolicyA0B5635E": Object {
-      "Properties": Object {
-        "PolicyDocument": Object {
-          "Statement": Array [
-            Object {
+    "streamTableFunctionServiceRoleDefaultPolicyA0B5635E": {
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
               "Action": "events:PutEvents",
               "Effect": "Allow",
-              "Resource": Object {
-                "Fn::Join": Array [
+              "Resource": {
+                "Fn::Join": [
                   "",
-                  Array [
+                  [
                     "arn:",
-                    Object {
+                    {
                       "Ref": "AWS::Partition",
                     },
                     ":events:",
-                    Object {
+                    {
                       "Ref": "AWS::Region",
                     },
                     ":",
-                    Object {
+                    {
                       "Ref": "AWS::AccountId",
                     },
                     ":event-bus/default",
@@ -205,41 +205,41 @@ Object {
                 ],
               },
             },
-            Object {
+            {
               "Action": "dynamodb:ListStreams",
               "Effect": "Allow",
               "Resource": "*",
             },
-            Object {
-              "Action": Array [
+            {
+              "Action": [
                 "dynamodb:DescribeStream",
                 "dynamodb:GetRecords",
                 "dynamodb:GetShardIterator",
               ],
               "Effect": "Allow",
-              "Resource": Object {
-                "Fn::GetAtt": Array [
+              "Resource": {
+                "Fn::GetAtt": [
                   "testStack53BF581B",
                   "StreamArn",
                 ],
               },
             },
-            Object {
-              "Action": Array [
+            {
+              "Action": [
                 "sqs:SendMessage",
                 "sqs:GetQueueAttributes",
                 "sqs:GetQueueUrl",
               ],
               "Effect": "Allow",
-              "Resource": Object {
-                "Fn::GetAtt": Array [
+              "Resource": {
+                "Fn::GetAtt": [
                   "streamTableDLQ0AE2E98D",
                   "Arn",
                 ],
               },
             },
-            Object {
-              "Action": Array [
+            {
+              "Action": [
                 "sqs:ReceiveMessage",
                 "sqs:ChangeMessageVisibility",
                 "sqs:GetQueueUrl",
@@ -247,8 +247,8 @@ Object {
                 "sqs:GetQueueAttributes",
               ],
               "Effect": "Allow",
-              "Resource": Object {
-                "Fn::GetAtt": Array [
+              "Resource": {
+                "Fn::GetAtt": [
                   "streamTableDLQ0AE2E98D",
                   "Arn",
                 ],
@@ -258,50 +258,50 @@ Object {
           "Version": "2012-10-17",
         },
         "PolicyName": "streamTableFunctionServiceRoleDefaultPolicyA0B5635E",
-        "Roles": Array [
-          Object {
+        "Roles": [
+          {
             "Ref": "streamTableFunctionServiceRole077F8269",
           },
         ],
       },
       "Type": "AWS::IAM::Policy",
     },
-    "streamTableFunctionstreamTableDLQMapping07DEC73C": Object {
-      "Properties": Object {
+    "streamTableFunctionstreamTableDLQMapping07DEC73C": {
+      "Properties": {
         "BatchSize": 10,
         "Enabled": false,
-        "EventSourceArn": Object {
-          "Fn::GetAtt": Array [
+        "EventSourceArn": {
+          "Fn::GetAtt": [
             "streamTableDLQ0AE2E98D",
             "Arn",
           ],
         },
-        "FunctionName": Object {
+        "FunctionName": {
           "Ref": "streamTableFunctionE2FC641D",
         },
       },
       "Type": "AWS::Lambda::EventSourceMapping",
     },
-    "testStack53BF581B": Object {
+    "testStack53BF581B": {
       "DeletionPolicy": "Retain",
-      "Properties": Object {
-        "AttributeDefinitions": Array [
-          Object {
+      "Properties": {
+        "AttributeDefinitions": [
+          {
             "AttributeName": "id",
             "AttributeType": "S",
           },
         ],
-        "KeySchema": Array [
-          Object {
+        "KeySchema": [
+          {
             "AttributeName": "id",
             "KeyType": "HASH",
           },
         ],
-        "ProvisionedThroughput": Object {
+        "ProvisionedThroughput": {
           "ReadCapacityUnits": 5,
           "WriteCapacityUnits": 5,
         },
-        "StreamSpecification": Object {
+        "StreamSpecification": {
           "StreamViewType": "NEW_AND_OLD_IMAGES",
         },
         "TableName": "TableName",

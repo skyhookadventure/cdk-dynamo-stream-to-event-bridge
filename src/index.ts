@@ -1,17 +1,17 @@
-import { Stack, Duration } from 'aws-cdk-lib';
+import { Duration, Stack } from 'aws-cdk-lib';
 import { ITable } from 'aws-cdk-lib/aws-dynamodb';
 import {
   DynamoEventSource,
   SqsDlq,
 } from 'aws-cdk-lib/aws-lambda-event-sources';
 
-import { NodejsFunction } from 'aws-cdk-lib/aws-lambda-nodejs';
-import { Runtime, StartingPosition } from 'aws-cdk-lib/aws-lambda';
-import { Queue } from 'aws-cdk-lib/aws-sqs';
-import { join } from 'path';
 import { IEventBus } from 'aws-cdk-lib/aws-events';
-import { PolicyStatement, Effect } from 'aws-cdk-lib/aws-iam';
+import { Effect, PolicyStatement } from 'aws-cdk-lib/aws-iam';
+import { StartingPosition } from 'aws-cdk-lib/aws-lambda';
+import { NodejsFunction } from 'aws-cdk-lib/aws-lambda-nodejs';
+import { Queue } from 'aws-cdk-lib/aws-sqs';
 import { Construct } from 'constructs';
+import { join } from 'path';
 
 export interface DynamoStreamToEventBridgeProps {
   table: ITable;
@@ -57,7 +57,6 @@ export default class DynamoStreamToEventBridge {
     // Lambda to handle streaming the event
     const lambda = new NodejsFunction(scope, `${id}Function`, {
       entry: join(__dirname, './lambda/dynamoStreamEventBridge.js'), // Will be compiled in the node module
-      runtime: Runtime.NODEJS_14_X,
       memorySize: 1024,
       description: `Streams updated rows from the table ${tableName}to EventBridge.`,
       environment: {

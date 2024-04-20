@@ -39,7 +39,7 @@ describe('unmarshallRecord', () => {
 describe('createDetailType', () => {
   it('uses mapping that matches the snapshot for event names', () => {
     expect(eventNameMapping).toMatchInlineSnapshot(`
-      Object {
+      {
         "INSERT": "Create",
         "MODIFY": "Update",
         "REMOVE": "Delete",
@@ -57,13 +57,13 @@ describe('getFormattedRecords', () => {
   it('returns an object matching the snapshot', () => {
     const res = getFormattedRecords(mockDynamoDBStreamEvent);
     expect(res[0]).toMatchInlineSnapshot(`
-Object {
-  "Detail": "{\\"id\\":\\"uuid_1\\",\\"title\\":\\"Title 1\\"}",
-  "DetailType": "TodoCreate",
-  "EventBusName": "default",
-  "Source": "testFunctionName",
-}
-`);
+      {
+        "Detail": "{"id":"uuid_1","title":"Title 1"}",
+        "DetailType": "TodoCreate",
+        "EventBusName": "default",
+        "Source": "testFunctionName",
+      }
+    `);
   });
 
   it('returns one object for each record', () => {
@@ -80,25 +80,25 @@ describe('handler', () => {
       .mockImplementation(putEventsSpy as any);
     await handler(mockDynamoDBStreamEvent);
     expect(putEventsSpy.mock.calls[0]).toMatchInlineSnapshot(`
-Array [
-  Object {
-    "Entries": Array [
-      Object {
-        "Detail": "{\\"id\\":\\"uuid_1\\",\\"title\\":\\"Title 1\\"}",
-        "DetailType": "TodoCreate",
-        "EventBusName": "default",
-        "Source": "testFunctionName",
-      },
-      Object {
-        "Detail": "{\\"id\\":\\"uuid_2\\",\\"title\\":\\"Title 2\\"}",
-        "DetailType": "TodoCreate",
-        "EventBusName": "default",
-        "Source": "testFunctionName",
-      },
-    ],
-  },
-]
-`);
+      [
+        {
+          "Entries": [
+            {
+              "Detail": "{"id":"uuid_1","title":"Title 1"}",
+              "DetailType": "TodoCreate",
+              "EventBusName": "default",
+              "Source": "testFunctionName",
+            },
+            {
+              "Detail": "{"id":"uuid_2","title":"Title 2"}",
+              "DetailType": "TodoCreate",
+              "EventBusName": "default",
+              "Source": "testFunctionName",
+            },
+          ],
+        },
+      ]
+    `);
   });
 
   it('fails when there is an error from Event Bridge', async () => {
