@@ -58,7 +58,7 @@ it('creates a Lambda function to process the Dynamo stream and emit EventBridge 
       },
       Handler: 'index.handler',
       MemorySize: 1024,
-    })
+    }),
   );
 });
 

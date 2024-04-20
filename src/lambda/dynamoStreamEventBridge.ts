@@ -16,7 +16,7 @@ export const eventBridge = new EventBridge();
  */
 export function unmarshallRecord(record: Record): { [key: string]: any } {
   return DynamoDB.Converter.unmarshall(
-    record!.dynamodb!.NewImage || record!.dynamodb!.OldImage!
+    record!.dynamodb!.NewImage || record!.dynamodb!.OldImage!,
   );
 }
 
@@ -43,7 +43,7 @@ export function createDetailType(operation: EventName): string {
  * Get formatted records ready to steam to eventBridge
  */
 export function getFormattedRecords(
-  event: GetRecordsOutput
+  event: GetRecordsOutput,
 ): EventBridge.PutEventsRequest['Entries'] {
   return event!.Records!.map((record: Record) => {
     const detail = unmarshallRecord(record);

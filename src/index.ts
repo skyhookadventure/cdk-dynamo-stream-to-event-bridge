@@ -41,7 +41,7 @@ export default class DynamoStreamToEventBridge {
   constructor(
     scope: Construct,
     id: string,
-    { table, eventPrefix, eventBus }: DynamoStreamToEventBridgeProps
+    { table, eventPrefix, eventBus }: DynamoStreamToEventBridgeProps,
   ) {
     const { tableName } = table;
 
@@ -91,7 +91,7 @@ export default class DynamoStreamToEventBridge {
         bisectBatchOnError: true,
         onFailure: new SqsDlq(deadLetterQueue),
         retryAttempts: 10,
-      })
+      }),
     );
 
     // Alarm for errors
