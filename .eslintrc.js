@@ -30,6 +30,7 @@ module.exports = {
   // As well as some Skyhook-specific preferences, the most intensive rules are disabled for performance reasons. This
   // reduces the linting time dramatically and thus improves the developer experience.
   rules: {
+    'import/extensions': 'off', // Disabled for performance
     '@typescript-eslint/no-implied-eval': 'off', // Disabled for performance
     'import/no-cycle': 'off', // Disabled for performance
     'import/no-extraneous-dependencies': 'off', // Disabled for performance
