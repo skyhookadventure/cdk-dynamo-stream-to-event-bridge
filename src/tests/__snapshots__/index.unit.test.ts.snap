@@ -142,7 +142,7 @@ exports[`creates resources matching the snapshot 1`] = `
             "Arn",
           ],
         },
-        "Runtime": "nodejs12.x",
+        "Runtime": "nodejs20.x",
       },
       "Type": "AWS::Lambda::Function",
     },

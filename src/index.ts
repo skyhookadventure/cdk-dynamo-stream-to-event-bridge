@@ -7,7 +7,7 @@ import {
 
 import { IEventBus } from 'aws-cdk-lib/aws-events';
 import { Effect, PolicyStatement } from 'aws-cdk-lib/aws-iam';
-import { StartingPosition } from 'aws-cdk-lib/aws-lambda';
+import { Runtime, StartingPosition } from 'aws-cdk-lib/aws-lambda';
 import { NodejsFunction } from 'aws-cdk-lib/aws-lambda-nodejs';
 import { Queue } from 'aws-cdk-lib/aws-sqs';
 import { Construct } from 'constructs';
@@ -71,6 +71,7 @@ export default class DynamoStreamToEventBridge {
           effect: Effect.ALLOW,
         }),
       ],
+      runtime: Runtime.NODEJS_20_X,
     });
 
     // Table stream permissions
