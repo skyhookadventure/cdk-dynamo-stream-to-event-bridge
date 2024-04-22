@@ -22,6 +22,8 @@ jobs:
         run: yarn test
       - name: Lint
         run: yarn lint
+      - name: Typescript build
+        run: yarn build
 
   publish-npm:
     if: github.event_name == 'push' # Push/merge only, not on PR
