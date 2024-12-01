@@ -1,20 +1,16 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
-/* eslint-disable no-restricted-syntax */
-/* eslint-disable guard-for-in */
-/* eslint-disable no-underscore-dangle */
+import {
+  EventBridgeClient,
+  PutEventsCommand,
+} from '@aws-sdk/client-eventbridge';
 import { DynamoDB, EventBridge } from 'aws-sdk';
 import { GetRecordsOutput, Record } from 'aws-sdk/clients/dynamodbstreams';
 
-/**
- * Initialise an EventBridge instance (for caching across invocations of this lambda)
- */
-export const eventBridge = new EventBridge();
+const ebClient = new EventBridgeClient({});
 
 /**
  * Unmarshall a DynamoDB record
  */
-export function unmarshallRecord(record: Record): { [key: string]: any } {
+export function unmarshallRecord(record: Record): { [key: string]: unknown } {
   return DynamoDB.Converter.unmarshall(
     record!.dynamodb!.NewImage || record!.dynamodb!.OldImage!,
   );
@@ -61,7 +57,7 @@ export function getFormattedRecords(
  */
 export async function handler(event: GetRecordsOutput): Promise<void> {
   const Entries = getFormattedRecords(event);
-  const result = await eventBridge.putEvents({ Entries }).promise();
+  const result = await ebClient.send(new PutEventsCommand({ Entries }));
   if (result.FailedEntryCount && result?.FailedEntryCount > 0) {
     throw new Error('PUT_RECORDS_TO_EVENTBRIDGE_FAIL');
   }
