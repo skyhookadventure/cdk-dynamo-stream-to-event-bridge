@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
+
+import { EventBridgeClient } from '@aws-sdk/client-eventbridge';
 import {
-  handler,
-  unmarshallRecord,
-  getFormattedRecords,
-  eventNameMapping,
   createDetailType,
   EventName,
-  eventBridge,
+  eventNameMapping,
+  getFormattedRecords,
+  handler,
+  unmarshallRecord,
 } from '../dynamoStreamEventBridge';
 import mockDynamoDBStreamEvent from './mocks/mockDynamoDBStreamEvent';
 
@@ -74,40 +74,41 @@ describe('getFormattedRecords', () => {
 
 describe('handler', () => {
   it('puts the events to event bridge', async () => {
-    const putEventsSpy = jest.fn(() => ({ promise: () => ({}) }));
-    jest
-      .spyOn(eventBridge, 'putEvents')
-      .mockImplementation(putEventsSpy as any);
+    const spyOn = jest
+      .spyOn(EventBridgeClient.prototype, 'send')
+      .mockReturnValue({} as any);
     await handler(mockDynamoDBStreamEvent);
-    expect(putEventsSpy.mock.calls[0]).toMatchInlineSnapshot(`
-      [
-        {
-          "Entries": [
+    expect(spyOn).toHaveBeenCalledWith(
+      expect.objectContaining({
+        input: expect.objectContaining({
+          Entries: expect.arrayContaining([
             {
-              "Detail": "{"id":"uuid_1","title":"Title 1"}",
-              "DetailType": "TodoCreate",
-              "EventBusName": "default",
-              "Source": "testFunctionName",
+              Detail: JSON.stringify({ id: 'uuid_1', title: 'Title 1' }),
+              DetailType: 'TodoCreate',
+              EventBusName: 'default',
+              Source: 'testFunctionName',
             },
             {
-              "Detail": "{"id":"uuid_2","title":"Title 2"}",
-              "DetailType": "TodoCreate",
-              "EventBusName": "default",
-              "Source": "testFunctionName",
+              Detail: JSON.stringify({ id: 'uuid_2', title: 'Title 2' }),
+              DetailType: 'TodoCreate',
+              EventBusName: 'default',
+              Source: 'testFunctionName',
             },
-          ],
-        },
-      ]
-    `);
+          ]),
+        }),
+      }),
+    );
   });
 
   it('fails when there is an error from Event Bridge', async () => {
-    jest.spyOn(eventBridge, 'putEvents').mockReturnValue({
-      promise: () => ({
-        FailedEntryCount: 1,
-      }),
+    jest.spyOn(EventBridgeClient.prototype, 'send').mockReturnValue({
+      FailedEntryCount: 1,
     } as any);
 
-    await expect(() => handler(mockDynamoDBStreamEvent)).rejects.toThrow();
+    await expect(() =>
+      handler(mockDynamoDBStreamEvent),
+    ).rejects.toThrowErrorMatchingInlineSnapshot(
+      `"PUT_RECORDS_TO_EVENTBRIDGE_FAIL"`,
+    );
   });
 });
