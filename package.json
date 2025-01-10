@@ -65,6 +65,7 @@
     "constructs": "^10"
   },
   "dependencies": {
+    "@aws-sdk/client-dynamodb-streams": "^3.726.1",
     "@aws-sdk/client-eventbridge": "^3.699.0",
     "@aws-sdk/util-dynamodb": "^3.726.1",
     "cdk-lambda-nodejs-mock": "^2.0.2"

@@ -1,17 +1,19 @@
+import { GetRecordsOutput, _Record } from '@aws-sdk/client-dynamodb-streams';
 import {
   EventBridgeClient,
   PutEventsCommand,
   PutEventsCommandInput,
 } from '@aws-sdk/client-eventbridge';
 import { unmarshall } from '@aws-sdk/util-dynamodb';
-import { GetRecordsOutput, Record } from 'aws-sdk/clients/dynamodbstreams';
 
 const ebClient = new EventBridgeClient({});
 
 /**
  * Unmarshall a DynamoDB record
  */
-export function unmarshallRecord(record: Record): { [key: string]: unknown } {
+export function unmarshallRecord(record: _Record): {
+  [key: string]: unknown;
+} {
   return unmarshall(record!.dynamodb!.NewImage || record!.dynamodb!.OldImage!);
 }
 
@@ -40,7 +42,7 @@ export function createDetailType(operation: EventName): string {
 export function getFormattedRecords(
   event: GetRecordsOutput,
 ): PutEventsCommandInput['Entries'] {
-  return event!.Records!.map((record: Record) => {
+  return event!.Records!.map((record: _Record) => {
     const detail = unmarshallRecord(record);
     return {
       DetailType: createDetailType(record.eventName as EventName),
