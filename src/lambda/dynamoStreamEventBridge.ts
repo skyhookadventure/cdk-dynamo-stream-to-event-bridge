@@ -1,8 +1,9 @@
 import {
   EventBridgeClient,
   PutEventsCommand,
+  PutEventsCommandInput,
 } from '@aws-sdk/client-eventbridge';
-import { DynamoDB, EventBridge } from 'aws-sdk';
+import { unmarshall } from '@aws-sdk/util-dynamodb';
 import { GetRecordsOutput, Record } from 'aws-sdk/clients/dynamodbstreams';
 
 const ebClient = new EventBridgeClient({});
@@ -11,9 +12,7 @@ const ebClient = new EventBridgeClient({});
  * Unmarshall a DynamoDB record
  */
 export function unmarshallRecord(record: Record): { [key: string]: unknown } {
-  return DynamoDB.Converter.unmarshall(
-    record!.dynamodb!.NewImage || record!.dynamodb!.OldImage!,
-  );
+  return unmarshall(record!.dynamodb!.NewImage || record!.dynamodb!.OldImage!);
 }
 
 export enum EventName {
@@ -40,7 +39,7 @@ export function createDetailType(operation: EventName): string {
  */
 export function getFormattedRecords(
   event: GetRecordsOutput,
-): EventBridge.PutEventsRequest['Entries'] {
+): PutEventsCommandInput['Entries'] {
   return event!.Records!.map((record: Record) => {
     const detail = unmarshallRecord(record);
     return {

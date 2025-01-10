@@ -19,7 +19,6 @@
     "@typescript-eslint/eslint-plugin": "^8.16.0",
     "@typescript-eslint/parser": "^8.16.0",
     "aws-cdk-lib": "^2.171.1",
-    "aws-sdk": "^2.1692.0",
     "constructs": "^10.4.2",
     "esbuild": "^0.24.0",
     "eslint": "^9.16.0",
@@ -61,11 +60,13 @@
   "peerDependencies": {
     "@aws-cdk/assert": "^2",
     "@aws-sdk/client-eventbridge": "^3",
+    "@aws-sdk/util-dynamodb": "^3",
     "aws-cdk-lib": "^2",
     "constructs": "^10"
   },
   "dependencies": {
     "@aws-sdk/client-eventbridge": "^3.699.0",
+    "@aws-sdk/util-dynamodb": "^3.726.1",
     "cdk-lambda-nodejs-mock": "^2.0.2"
   },
   "packageManager": "yarn@4.1.1"

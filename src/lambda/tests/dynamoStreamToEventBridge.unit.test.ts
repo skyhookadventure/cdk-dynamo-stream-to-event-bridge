@@ -56,7 +56,7 @@ describe('createDetailType', () => {
 describe('getFormattedRecords', () => {
   it('returns an object matching the snapshot', () => {
     const res = getFormattedRecords(mockDynamoDBStreamEvent);
-    expect(res[0]).toMatchInlineSnapshot(`
+    expect(res?.[0]).toMatchInlineSnapshot(`
       {
         "Detail": "{"id":"uuid_1","title":"Title 1"}",
         "DetailType": "TodoCreate",
@@ -68,7 +68,7 @@ describe('getFormattedRecords', () => {
 
   it('returns one object for each record', () => {
     const res = getFormattedRecords(mockDynamoDBStreamEvent);
-    expect(res.length).toBe(mockDynamoDBStreamEvent.Records!.length);
+    expect(res?.length).toBe(mockDynamoDBStreamEvent.Records!.length);
   });
 });
 
