@@ -1,4 +1,4 @@
-import { GetRecordsOutput } from 'aws-sdk/clients/dynamodbstreams';
+import { GetRecordsOutput } from '@aws-sdk/client-dynamodb-streams';
 
 const mockDynamoDBStreamEvent: GetRecordsOutput = {
   Records: [
